@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Techblog</string>
+    <string name="base_url">https://techblog.gr/</string>
+</resources>
