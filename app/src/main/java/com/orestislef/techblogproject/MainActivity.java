@@ -125,12 +125,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 category = 0;
-                Toast.makeText(this, "home", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_smartphones:
                 category = 8;
-                Toast.makeText(this, "smartphone", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_gear:
+                category=24;
+                break;
+            case R.id.nav_reviews:
+                category=58;
+                break;
+            case R.id.nav_workshop:
+                category=1033;
+                break;
+            case R.id.nav_internet:
+                category=49;
+                break;
+            case R.id.nav_cars:
+                category=9131;
+                break;
+            case R.id.nav_homecinema:
+                category=57;
+                break;
+            case R.id.nav_software:
+                category=584;
+                break;
+            case R.id.nav_computers:
+                category=29;
+                break;
+            case R.id.nav_business:
+                category=24;
+                break;
+
         }
         mData.clear();
         getData();
