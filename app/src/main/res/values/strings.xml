@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Techblog</string>
     <string name="base_url">https://techblog.gr/</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Open navigation close</string>
 </resources>
