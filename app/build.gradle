@@ -4,6 +4,7 @@ android {
     compileSdkVersion 32
     defaultConfig {
         applicationId "com.orestislef.techblogproject"
+        multiDexEnabled true
         minSdkVersion 19
         targetSdkVersion 32
         versionCode 1
@@ -17,6 +18,7 @@ android {
         }
     }
     buildToolsVersion '32.1.0 rc1'
+
 }
 
 dependencies {
@@ -34,11 +36,11 @@ dependencies {
 
     //retrofit
     implementation 'com.google.code.gson:gson:2.9.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
 
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'

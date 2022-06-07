@@ -61,7 +61,7 @@ public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final NewsViewHolder newsViewHolder, int position) {
 
         // bind data here
 
