@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/card_bg.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/card_bg_dark.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable-v24/search_input_dark_style.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable-v24/search_input_style.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/gradient_lavender.xml" value="0.1475" />
+        <entry key="app/src/main/res/drawable/ic_wb_sunny_orragne_24dp.xml" value="0.1475" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.10729166666666666" />
+        <entry key="app/src/main/res/layout/item_news.xml" value="0.2453125" />
+        <entry key="app/src/main/res/layout/nav_header.xml" value="0.2453125" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

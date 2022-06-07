@@ -1,16 +1,16 @@
 package com.orestislef.techblogproject;
 
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,12 +19,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.Toast;
 
-import java.lang.ref.Reference;
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -194,10 +194,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         call.enqueue(new Callback<List<WPPost>>() {
             @Override
-            public void onResponse(Call<List<WPPost>> call, Response<List<WPPost>> response) {
+            public void onResponse(@NonNull Call<List<WPPost>> call, @NonNull Response<List<WPPost>> response) {
                 Log.e(TAG, "onResponse: " + response.body());
 
-                for (int i = 0; i < response.body().size(); i++) {
+                for (int i = 0; i < Objects.requireNonNull(response.body()).size(); i++) {
                     int mId = response.body().get(i).getId();
                     Log.d(TAG, "onResponseID: " + mId);
                     final String mediaUrl = response.body().get(i).getLinks().getWpAttachment().get(0).getHref();
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     final String finalMSubtitle = mSubtitle;
                     call2.enqueue(new Callback<List<WPPostID>>() {
                                       @Override
-                                      public void onResponse(Call<List<WPPostID>> call, Response<List<WPPostID>> response) {
+                                      public void onResponse(@NonNull Call<List<WPPostID>> call, @NonNull Response<List<WPPostID>> response) {
 
                                           Log.e(TAG, "onResponse: " + response.body());
 
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                       }
 
                                       @Override
-                                      public void onFailure(Call<List<WPPostID>> call, Throwable t) {
+                                      public void onFailure(@NonNull Call<List<WPPostID>> call, Throwable t) {
                                       }
                                   }
                     );
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             @Override
-            public void onFailure(Call<List<WPPost>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<WPPost>> call, Throwable t) {
             }
         });
     }
