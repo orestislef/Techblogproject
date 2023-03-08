@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,17 +27,17 @@ import com.bumptech.glide.request.target.Target;
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPostAdapter.NewsViewHolder> implements Filterable {
-
-
     Context mContext;
     List<PostItem> mData;
     List<PostItem> mDataFiltered;
-
 
     public RecyclerViewPostAdapter(Context mContext, List<PostItem> mData, boolean isDark) {
         this.mContext = mContext;
@@ -80,23 +81,18 @@ public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPo
         newsViewHolder.tv_title.setText(mDataFiltered.get(position).getTitle());
         newsViewHolder.tv_content.setHtml(mDataFiltered.get(position).Excerpt, new HtmlHttpImageGetter(newsViewHolder.tv_content));
 //        newsViewHolder.tv_content.setHtml(mDataFiltered.get(position).getContent());
-        newsViewHolder.tv_date.setText(mDataFiltered.get(position).getDate());
+        newsViewHolder.tv_date.setText(calculateTimeAgo(mDataFiltered.get(position).getDate()));
         if (mDataFiltered.get(position).image.equals("")) {
             newsViewHolder.img_user.setVisibility(View.GONE);
         } else {
+            int finalPos = position;
             Glide.with(mContext)
                     .load(mDataFiltered.get(position)).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Glide.with(mContext)
-                                    .load(mDataFiltered.get(position).image)
-                                    .into(newsViewHolder.img_user);
-                        }
-
-                    });
+                    new Handler().post(() -> Glide.with(mContext)
+                            .load(mDataFiltered.get(finalPos).image)
+                            .into(newsViewHolder.img_user));
                     return false;
                 }
 
@@ -106,17 +102,30 @@ public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPo
                 }
             }).into(newsViewHolder.img_user);
         }
-        newsViewHolder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    newsViewHolder.tv_content.setHtml(mDataFiltered.get(position).Content, new HtmlHttpImageGetter(newsViewHolder.tv_content));
-            }
-        });
+        int finalPos = position;
+        newsViewHolder.container.setOnClickListener(v ->
+                newsViewHolder.tv_content.
+                        setHtml(mDataFiltered.get(finalPos).Content,
+                                new HtmlHttpImageGetter(newsViewHolder.tv_content)));
     }
 
     @Override
     public int getItemCount() {
         return mDataFiltered.size();
+    }
+
+    public String calculateTimeAgo(@NonNull String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+        try {
+            long time = sdf.parse(date).getTime();
+            long now = System.currentTimeMillis();
+            CharSequence ago =
+                    DateUtils.getRelativeTimeSpanString(time, now, DateUtils.SECOND_IN_MILLIS);
+            return ago + "";
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -158,7 +167,7 @@ public class RecyclerViewPostAdapter extends RecyclerView.Adapter<RecyclerViewPo
         };
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder {
+    public static class NewsViewHolder extends RecyclerView.ViewHolder {
 
 
         HtmlTextView tv_content;

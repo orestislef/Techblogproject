@@ -130,31 +130,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 category = 8;
                 break;
             case R.id.nav_gear:
-                category=24;
+                category = 24;
                 break;
             case R.id.nav_reviews:
-                category=58;
+                category = 58;
                 break;
             case R.id.nav_workshop:
-                category=1033;
+                category = 1033;
                 break;
             case R.id.nav_internet:
-                category=49;
+                category = 49;
                 break;
             case R.id.nav_cars:
-                category=9131;
+                category = 9131;
                 break;
             case R.id.nav_homecinema:
-                category=57;
+                category = 57;
                 break;
             case R.id.nav_software:
-                category=584;
+                category = 584;
                 break;
             case R.id.nav_computers:
-                category=29;
+                category = 29;
                 break;
             case R.id.nav_business:
-                category=24;
+                category = 24;
                 break;
 
         }
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void getData() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(getResources()
-                .getString(R.string.base_url))
+                        .getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -236,16 +236,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                           Log.e(TAG, "onResponse: " + response.body());
 
-                                          if (response.body().size() != 0) {
-                                              imageUrl = response.body().get(0).getMediaDetails().getSizes().getThumbnail().getSourceUrl();
+                                          if (response.body() != null) {
+                                              if (response.body().size() != 0) {
+                                                  imageUrl = response.body().get(0).getMediaDetails().getSizes().getThumbnail().getSourceUrl();
 //                                              imageUrl = response.body().get(0).getSourceUrl();
-                                              Log.d(TAG, "onResponseImage: " + "\n******************************************************************************************" + "\n\t with media " + imageUrl + "\n******************************************************************************************");
-                                          } else {
-                                              imageUrl = "";
-                                              Log.d(TAG, "onResponseImage: " + "\n******************************************************************************************" + "\n\t null media\n" + imageUrl + "\n******************************************************************************************");
+                                                  Log.d(TAG, "onResponseImage: " + "\n******************************************************************************************" + "\n\t with media " + imageUrl + "\n******************************************************************************************");
+                                              } else {
+                                                  imageUrl = "";
+                                                  Log.d(TAG, "onResponseImage: " + "\n******************************************************************************************" + "\n\t null media\n" + imageUrl + "\n******************************************************************************************");
+                                              }
                                           }
                                           mData.add(new PostItem(mTitle, finalMSubtitle, finalMContent, mDate, imageUrl));
-                                          recyclerViewPostAdapter.notifyDataSetChanged();
+                                          recyclerViewPostAdapter.notifyItemInserted(mData.size() - 1);
                                       }
 
                                       @Override
